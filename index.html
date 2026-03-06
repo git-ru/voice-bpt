@@ -1,0 +1,311 @@
+<!DOCTYPE html>
+<html lang="en">
+<head>
+  <meta charset="UTF-8" />
+  <meta name="viewport" content="width=device-width, initial-scale=1.0" />
+  <title>share your voice — trifecta</title>
+  <link rel="preconnect" href="https://fonts.googleapis.com" />
+  <link rel="preconnect" href="https://fonts.gstatic.com" crossorigin />
+  <link href="https://fonts.googleapis.com/css2?family=EB+Garamond:ital,wght@0,400;0,500;1,400;1,500&family=DM+Sans:ital,wght@0,300;0,400;1,300&display=swap" rel="stylesheet" />
+  <style>
+    *, *::before, *::after {
+      box-sizing: border-box;
+      margin: 0;
+      padding: 0;
+    }
+
+    :root {
+      --bg: #f7f5f1;
+      --text: #1a1a18;
+      --muted: #8a8880;
+      --rule: #d6d2cb;
+    }
+
+    html {
+      background: var(--bg);
+      color: var(--text);
+      font-family: 'EB Garamond', Georgia, serif;
+      font-size: 18px;
+      line-height: 1.65;
+    }
+
+    body {
+      min-height: 100vh;
+      display: flex;
+      flex-direction: column;
+      max-width: 560px;
+      margin: 0 auto;
+      padding: 0 32px;
+    }
+
+    /* ── header ── */
+    header {
+      padding: 64px 0 0;
+      opacity: 0;
+      animation: fadeUp 1s ease forwards;
+      animation-delay: 0.1s;
+    }
+
+    .eyebrow {
+      font-family: 'DM Sans', sans-serif;
+      font-size: 0.7rem;
+      font-weight: 300;
+      color: var(--muted);
+      letter-spacing: 0.08em;
+      margin-bottom: 32px;
+    }
+
+    h1 {
+      font-size: clamp(3rem, 10vw, 4.8rem);
+      font-weight: 400;
+      font-style: italic;
+      line-height: 1.05;
+      letter-spacing: -0.01em;
+      margin-bottom: 48px;
+    }
+
+    /* ── sections ── */
+    section {
+      opacity: 0;
+      animation: fadeUp 1s ease forwards;
+      padding: 36px 0;
+      border-top: 1px solid var(--rule);
+    }
+
+    section:nth-of-type(1) { animation-delay: 0.3s; }
+    section:nth-of-type(2) { animation-delay: 0.5s; }
+    section:nth-of-type(3) { animation-delay: 0.65s; }
+    section:nth-of-type(4) { animation-delay: 0.8s; }
+
+    p {
+      margin-bottom: 1em;
+    }
+    p:last-child {
+      margin-bottom: 0;
+    }
+
+    .lede {
+      font-size: clamp(1.15rem, 3vw, 1.35rem);
+      line-height: 1.55;
+      font-style: italic;
+    }
+
+    .lede strong {
+      font-style: normal;
+      font-weight: 500;
+    }
+
+    .body-text {
+      font-family: 'DM Sans', sans-serif;
+      font-size: 0.9rem;
+      font-weight: 300;
+      line-height: 1.65;
+      color: #2a2a28;
+    }
+
+    .emphasis {
+      font-style: italic;
+      font-size: clamp(1.1rem, 2.8vw, 1.3rem);
+      font-weight: 500;
+    }
+
+    /* ── how it works list ── */
+    ol {
+      list-style: none;
+      margin-top: 8px;
+    }
+
+    ol li {
+      display: grid;
+      grid-template-columns: 28px 1fr;
+      gap: 12px;
+      padding: 16px 0;
+      border-bottom: 1px solid var(--rule);
+      font-family: 'DM Sans', sans-serif;
+      font-size: 0.9rem;
+      font-weight: 300;
+      line-height: 1.55;
+    }
+
+    ol li:first-child {
+      border-top: 1px solid var(--rule);
+    }
+
+    .num {
+      font-family: 'DM Sans', sans-serif;
+      color: var(--muted);
+      font-size: 0.75rem;
+      font-weight: 300;
+      padding-top: 3px;
+    }
+
+    .consent {
+      font-family: 'DM Sans', sans-serif;
+      font-size: 0.8rem;
+      font-weight: 300;
+      color: var(--muted);
+      line-height: 1.7;
+      margin-top: 20px;
+      padding-top: 20px;
+      border-top: 1px solid var(--rule);
+    }
+
+    /* ── footer ── */
+    footer {
+      margin-top: auto;
+      padding: 40px 0 52px;
+      border-top: 1px solid var(--rule);
+      opacity: 0;
+      animation: fadeUp 1s ease forwards;
+      animation-delay: 1s;
+    }
+
+    footer p {
+      font-family: 'DM Sans', sans-serif;
+      font-size: 0.78rem;
+      font-weight: 300;
+      color: var(--muted);
+      line-height: 1.85;
+      letter-spacing: 0.02em;
+    }
+
+    footer a {
+      color: var(--muted);
+      text-decoration: none;
+    }
+
+    footer a:hover {
+      color: var(--text);
+    }
+
+    .download-btn {
+      display: inline-flex;
+      align-items: center;
+      gap: 8px;
+      margin-top: 24px;
+      padding: 11px 20px;
+      border: 1px solid var(--rule);
+      font-family: 'DM Sans', sans-serif;
+      font-size: 0.82rem;
+      font-weight: 300;
+      color: var(--muted);
+      text-decoration: none;
+      letter-spacing: 0.04em;
+      transition: border-color 0.2s, color 0.2s;
+    }
+
+    .download-btn:hover {
+      border-color: var(--text);
+      color: var(--text);
+    }
+
+        @keyframes fadeUp {
+      from { opacity: 0; transform: translateY(12px); }
+      to   { opacity: 1; transform: translateY(0); }
+    }
+
+    @media (max-width: 480px) {
+      body { padding: 0 22px; }
+      header { padding: 48px 0 0; }
+    }
+  </style>
+</head>
+<body>
+
+  <header>
+    <p class="eyebrow">trifecta &nbsp;·&nbsp; lēʻahi gallery &nbsp;·&nbsp; capitol modern</p>
+    <h1>share<br>your<br>voice.</h1>
+  </header>
+
+  <section>
+    <p class="lede">
+      In rehearsing the unknown together,<br>
+      <strong>Soundtrack for My Funeral</strong><br>
+      treats
+    </p>
+    <p class="emphasis">the unseen as inspiration.</p>
+    <br>
+    <p class="body-text">
+      Here, audio description —
+      usually a tool for making visual media accessible to blind and low-vision audiences —
+      becomes a way of
+    </p>
+    <p class="emphasis">making meaning together.</p>
+  </section>
+
+  <section>
+    <p class="lede">what do you see?<br>what do you notice?</p>
+    <br>
+    <p class="body-text">
+      How would you describe this to someone in another room?<br>
+      It can be observational, poetic, personal — or all three.<br>
+      However you choose to do this, your perspective is welcome.
+    </p>
+    <br>
+    <p class="body-text">
+      Multiple voices describe the same work,
+      every perspective its own.
+      What emerges is collective —
+    </p>
+    <p class="emphasis">living.</p>
+  </section>
+
+  <section>
+    <p class="body-text" style="margin-bottom: 16px;">to participate, scan the QR code beside any artwork in the lēʻahi gallery. download the map to find each curator's code.</p>
+    <a href="SFMF_trifecta_voice_invite-for_web.pdf" download class="download-btn">
+      <svg width="14" height="14" viewBox="0 0 14 14" fill="none" xmlns="http://www.w3.org/2000/svg" aria-hidden="true">
+        <path d="M7 1v8M4 6.5l3 3 3-3M2 11h10" stroke="currentColor" stroke-width="1.2" stroke-linecap="round" stroke-linejoin="round"/>
+      </svg>
+      download the map &amp; guide
+    </a>
+    <ol>
+      <li>
+        <span class="num">01</span>
+        <span>stand with the work</span>
+      </li>
+      <li>
+        <span class="num">02</span>
+        <span>record yourself describing what you see — aim for 30 seconds to 2 minutes</span>
+      </li>
+      <li>
+        <span class="num">03</span>
+        <span>submit — and your voice becomes part of this work</span>
+      </li>
+    </ol>
+    <p class="consent">
+      with your consent, your voice becomes part of this project and the work's permanent public archive.<br><br>
+      recording may be used as part of this project, this artwork's public archive and for accessibility purposes.
+    </p>
+  </section>
+
+  <section>
+    <p class="body-text">
+      This archive is one of the first public chapters of the work —
+    </p>
+    <br>
+    <p class="emphasis">Mahalo for sharing your voice.</p>
+    <br>
+    <p class="body-text">
+      <em>Soundtrack for My Funeral</em> is a community-collaborative project
+      developed through workshops, open rehearsals, and public dialogue.<br><br>
+      The recordings gathered here will become material for
+      an installation &amp; performance —
+    </p>
+    <p class="emphasis">May 16, 2026 &nbsp;·&nbsp; Capitol Modern</p>
+  </section>
+
+  <footer>
+    <p>
+      a project by body portal theatre<br>
+      presented by UHM outreach college and capitol modern<br>
+      concept &amp; choreography sheenru yong<br>
+      <br>
+      state of hawaiʻi &nbsp;·&nbsp; art in public places<br>
+      trifecta &nbsp;·&nbsp; february 4 – july, 2026<br>
+      <br>
+      <a href="https://instagram.com/bodyportaltheatre" target="_blank">@bodyportaltheatre</a>
+    </p>
+  </footer>
+
+</body>
+</html>
