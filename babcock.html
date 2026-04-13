@@ -6,10 +6,7 @@
 <title>share your voice — trifecta</title>
 <link href="https://fonts.googleapis.com/css2?family=Cormorant+Garamond:ital,wght@0,300;0,400;1,300;1,400&family=Nunito+Sans:wght@200;300;400&display=swap" rel="stylesheet">
 <style>
-:root {
-  --ink: #1a1916; --paper: #f7f5f0; --mid: #9a948d; --rule: #d4d0c8; --red: #b83232;
-  --serif: 'Cormorant Garamond', Georgia, serif; --sans: 'Nunito Sans', sans-serif;
-}
+:root { --ink: #1a1916; --paper: #f7f5f0; --mid: #9a948d; --rule: #d4d0c8; --red: #b83232; --serif: 'Cormorant Garamond', Georgia, serif; --sans: 'Nunito Sans', sans-serif; }
 * { box-sizing: border-box; margin: 0; padding: 0; }
 body { background: var(--paper); color: var(--ink); font-family: var(--sans); font-weight: 300; min-height: 100vh; padding: 0 0 6rem; }
 header { padding: 3rem 1.75rem 2.5rem; max-width: 600px; margin: 0 auto; }
@@ -67,10 +64,10 @@ footer { max-width: 600px; margin: 3rem auto 0; padding: 1.5rem 1.75rem 0; borde
 </header>
 <div class="works">
   <div class="work-block">
-    <div class="curator-line">curated by Babcock</div>
+    <div class="curator-line">curated by Mary Babcock</div>
     <div class="work-number">work 1 of 3</div>
-    <div class="work-artist">Kealoha Domingo</div>
-    <div class="work-title">Nā Hulu Aliʻi</div>
+    <div class="work-artist">Miho Morinoue</div>
+    <div class="work-title">Standing in the Jungle</div>
     <div class="recorder-row">
       <button class="rec-ring" id="ring-babcock-1" onclick="toggleRecording('babcock-1')"><span class="dot"></span></button>
       <span class="rec-label" id="label-babcock-1">tap to record</span>
@@ -83,9 +80,10 @@ footer { max-width: 600px; margin: 3rem auto 0; padding: 1.5rem 1.75rem 0; borde
     <div class="thank-you" id="thanks-babcock-1">mahalo.<br>your voice is part of this work.</div>
   </div>
   <div class="work-block">
+
     <div class="work-number">work 2 of 3</div>
-    <div class="work-artist">Kim Yoon-Ja</div>
-    <div class="work-title">Winter Morning</div>
+    <div class="work-artist">Dalani Tanahy</div>
+    <div class="work-title">He Kumu Wai ʻOle</div>
     <div class="recorder-row">
       <button class="rec-ring" id="ring-babcock-2" onclick="toggleRecording('babcock-2')"><span class="dot"></span></button>
       <span class="rec-label" id="label-babcock-2">tap to record</span>
@@ -98,9 +96,10 @@ footer { max-width: 600px; margin: 3rem auto 0; padding: 1.5rem 1.75rem 0; borde
     <div class="thank-you" id="thanks-babcock-2">mahalo.<br>your voice is part of this work.</div>
   </div>
   <div class="work-block">
+
     <div class="work-number">work 3 of 3</div>
-    <div class="work-artist">Nikolas Weinstein</div>
-    <div class="work-title">Untitled</div>
+    <div class="work-artist">Maikaʻi Tubbs</div>
+    <div class="work-title">A Sign of the Times</div>
     <div class="recorder-row">
       <button class="rec-ring" id="ring-babcock-3" onclick="toggleRecording('babcock-3')"><span class="dot"></span></button>
       <span class="rec-label" id="label-babcock-3">tap to record</span>
@@ -119,122 +118,51 @@ footer { max-width: 600px; margin: 3rem auto 0; padding: 1.5rem 1.75rem 0; borde
 </footer>
 <script>
 const RECEIVER_URL = "https://script.google.com/macros/s/AKfycbwkeM2MytKbhp9P5xYqZ4nXO3csYgrze64GO-ww9aAP8y4u3UBlHrC4ORwCbQW2nE3C/exec";
-const CURATOR_NAME = "Babcock";
+const CURATOR_NAME = "Mary Babcock";
 const recordedBlobs = {};
-
 function getSupportedMimeType() {
-  const types = [
-    'audio/webm;codecs=opus',
-    'audio/webm',
-    'audio/mp4;codecs=mp4a.40.2',
-    'audio/mp4',
-    'audio/ogg;codecs=opus',
-    'audio/ogg',
-  ];
-  for (const type of types) {
-    if (MediaRecorder.isTypeSupported(type)) return type;
-  }
+  const types = ['audio/webm;codecs=opus','audio/webm','audio/mp4;codecs=mp4a.40.2','audio/mp4','audio/ogg;codecs=opus','audio/ogg'];
+  for (const type of types) { if (MediaRecorder.isTypeSupported(type)) return type; }
   return '';
 }
-
 function blobToBase64(blob) {
-  return new Promise((resolve, reject) => {
-    const reader = new FileReader();
-    reader.onloadend = () => resolve(reader.result.split(',')[1]);
-    reader.onerror = reject;
-    reader.readAsDataURL(blob);
-  });
+  return new Promise((resolve,reject) => { const r=new FileReader(); r.onloadend=()=>resolve(r.result.split(',')[1]); r.onerror=reject; r.readAsDataURL(blob); });
 }
-
 const recorders = {};
-
 async function toggleRecording(id) {
-  const ring  = document.getElementById('ring-'  + id);
-  const label = document.getElementById('label-' + id);
-  const timer = document.getElementById('timer-' + id);
-  const post  = document.getElementById('post-'  + id);
-  const audio = document.getElementById('audio-' + id);
-  if (recorders[id] && recorders[id].state === 'recording') {
-    recorders[id].stop();
-    ring.classList.remove('recording');
-    label.textContent = 'tap to record again';
-    timer.classList.remove('active');
-    clearInterval(recorders[id]._iv);
-    return;
-  }
+  const ring=document.getElementById('ring-'+id),label=document.getElementById('label-'+id),timer=document.getElementById('timer-'+id),post=document.getElementById('post-'+id),audio=document.getElementById('audio-'+id);
+  if (recorders[id]&&recorders[id].state==='recording') { recorders[id].stop(); ring.classList.remove('recording'); label.textContent='tap to record again'; timer.classList.remove('active'); clearInterval(recorders[id]._iv); return; }
   try {
-    const stream = await navigator.mediaDevices.getUserMedia({ audio: true });
-    const mimeType = getSupportedMimeType();
-    const mr = mimeType ? new MediaRecorder(stream, { mimeType }) : new MediaRecorder(stream);
-    const chunks = [];
-    recorders[id] = mr;
-    mr.ondataavailable = e => chunks.push(e.data);
-    mr.onstop = () => {
-      const blob = new Blob(chunks, { type: mr.mimeType || 'audio/webm' });
-      recordedBlobs[id] = blob;
-      audio.src = URL.createObjectURL(blob);
-      post.classList.add('visible');
-      stream.getTracks().forEach(t => t.stop());
-    };
-    mr.start();
-    ring.classList.add('recording');
-    label.textContent = 'tap to stop';
-    post.classList.remove('visible');
-    let s = 0;
-    timer.classList.add('active');
-    timer.textContent = '0:00';
-    mr._iv = setInterval(() => {
-      s++;
-      timer.textContent = Math.floor(s/60) + ':' + String(s%60).padStart(2,'0');
-    }, 1000);
-  } catch(e) {
-    alert('Please allow microphone access to record.');
-  }
+    const stream=await navigator.mediaDevices.getUserMedia({audio:true});
+    const mimeType=getSupportedMimeType();
+    const mr=mimeType?new MediaRecorder(stream,{mimeType}):new MediaRecorder(stream);
+    const chunks=[];
+    recorders[id]=mr;
+    mr.ondataavailable=e=>chunks.push(e.data);
+    mr.onstop=()=>{ const blob=new Blob(chunks,{type:mr.mimeType||'audio/webm'}); recordedBlobs[id]=blob; audio.src=URL.createObjectURL(blob); post.classList.add('visible'); stream.getTracks().forEach(t=>t.stop()); };
+    mr.start(); ring.classList.add('recording'); label.textContent='tap to stop'; post.classList.remove('visible');
+    let s=0; timer.classList.add('active'); timer.textContent='0:00';
+    mr._iv=setInterval(()=>{ s++; timer.textContent=Math.floor(s/60)+':'+String(s%60).padStart(2,'0'); },1000);
+  } catch(e) { alert('Please allow microphone access to record.'); }
 }
-
 async function submitRecording(id) {
-  const btn = document.querySelector('#post-' + id + ' .submit-btn');
+  const btn=document.querySelector('#post-'+id+' .submit-btn');
   if (!recordedBlobs[id]) return;
-  btn.textContent = 'sending…';
-  btn.disabled = true;
+  btn.textContent='sending…'; btn.disabled=true;
   try {
-    const blob = recordedBlobs[id];
-    const base64 = await blobToBase64(blob);
-    const visitorName = document.getElementById('visitor-name').value.trim();
-    const consent = document.getElementById('global-consent').checked;
-    const block = document.getElementById('ring-' + id).closest('.work-block');
-    const workLabel = block.querySelector('.work-artist').textContent + ' — ' + block.querySelector('.work-title').textContent;
-    const payload = {
-      curator: CURATOR_NAME,
-      workId: id,
-      workLabel: workLabel,
-      visitorName: visitorName || 'anonymous',
-      consent: consent,
-      audioBase64: base64,
-      mimeType: blob.type || 'audio/webm',
-      timestamp: new Date().toISOString()
-    };
-    await new Promise((resolve, reject) => {
-      const xhr = new XMLHttpRequest();
-      xhr.open('POST', RECEIVER_URL);
-      xhr.onload = resolve;
-      xhr.onerror = reject;
-      xhr.send(JSON.stringify(payload));
-    });
-    if (true) {
-      document.getElementById('post-'   + id).classList.remove('visible');
-      document.getElementById('ring-'   + id).style.display = 'none';
-      document.getElementById('label-'  + id).style.display = 'none';
-      document.getElementById('timer-'  + id).style.display = 'none';
-      document.getElementById('thanks-' + id).classList.add('visible');
-    } else {
-      throw new Error('Upload failed');
-    }
-  } catch(e) {
-    btn.textContent = 'submit';
-    btn.disabled = false;
-    alert('Something went wrong. Please try again.');
-  }
+    const blob=recordedBlobs[id],base64=await blobToBase64(blob);
+    const visitorName=document.getElementById('visitor-name').value.trim();
+    const consent=document.getElementById('global-consent').checked;
+    const block=document.getElementById('ring-'+id).closest('.work-block');
+    const workLabel=block.querySelector('.work-artist').textContent+' — '+block.querySelector('.work-title').textContent;
+    const payload={curator:CURATOR_NAME,workId:id,workLabel:workLabel,visitorName:visitorName||'anonymous',consent:consent,audioBase64:base64,mimeType:blob.type||'audio/webm',timestamp:new Date().toISOString()};
+    await fetch(RECEIVER_URL,{method:'POST',mode:'no-cors',headers:{'Content-Type':'application/json'},body:JSON.stringify(payload)});
+    document.getElementById('post-'+id).classList.remove('visible');
+    document.getElementById('ring-'+id).style.display='none';
+    document.getElementById('label-'+id).style.display='none';
+    document.getElementById('timer-'+id).style.display='none';
+    document.getElementById('thanks-'+id).classList.add('visible');
+  } catch(e) { btn.textContent='submit'; btn.disabled=false; alert('Something went wrong. Please try again.'); }
 }
 </script>
 </body>
