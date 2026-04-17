@@ -4,308 +4,655 @@
   <meta charset="UTF-8" />
   <meta name="viewport" content="width=device-width, initial-scale=1.0" />
   <title>share your voice — trifecta</title>
-  <link rel="preconnect" href="https://fonts.googleapis.com" />
-  <link rel="preconnect" href="https://fonts.gstatic.com" crossorigin />
-  <link href="https://fonts.googleapis.com/css2?family=EB+Garamond:ital,wght@0,400;0,500;1,400;1,500&family=DM+Sans:ital,wght@0,300;0,400;1,300&display=swap" rel="stylesheet" />
+  <link rel="preconnect" href="https://fonts.googleapis.com">
+  <link rel="preconnect" href="https://fonts.gstatic.com" crossorigin>
+  <link href="https://fonts.googleapis.com/css2?family=EB+Garamond:ital,wght@0,400;0,500;1,400&family=Karla:wght@300;400&display=swap" rel="stylesheet">
   <style>
-    *, *::before, *::after {
-      box-sizing: border-box;
-      margin: 0;
-      padding: 0;
-    }
-
     :root {
-      --bg: #f7f5f1;
-      --text: #1a1a18;
-      --muted: #8a8880;
-      --rule: #d6d2cb;
+      --bg: #f5f3ef;
+      --text: #1a1916;
+      --muted: #9a9388;
+      --accent: #7a6a52;
+      --rule: #dedad4;
     }
 
-    html {
-      background: var(--bg);
-      color: var(--text);
-      font-family: 'EB Garamond', Georgia, serif;
-      font-size: 18px;
-      line-height: 1.65;
-    }
+    * { box-sizing: border-box; margin: 0; padding: 0; }
+    html { background: var(--bg); }
 
     body {
+      background: var(--bg);
+      color: var(--text);
+      font-family: 'Karla', sans-serif;
+      font-weight: 300;
+      font-size: 16.5px;
+      line-height: 1.8;
       min-height: 100vh;
+    }
+
+    /* ── Top: two columns ── */
+    .top-wrap {
+      display: grid;
+      grid-template-columns: 1fr 380px;
+      min-height: 100vh;
+    }
+
+    /* Left: project description */
+    .main-col {
+      padding: 72px 48px 80px 56px;
+      border-right: 1px solid var(--rule);
       display: flex;
       flex-direction: column;
-      max-width: 560px;
-      margin: 0 auto;
-      padding: 0 32px;
     }
 
-    /* ── header ── */
-    header {
-      padding: 64px 0 0;
-      opacity: 0;
-      animation: fadeUp 1s ease forwards;
-      animation-delay: 0.1s;
+    .main-col .inner {
+      max-width: 480px;
     }
 
-    .eyebrow {
-      font-family: 'DM Sans', sans-serif;
-      font-size: 0.7rem;
-      font-weight: 300;
+    /* Right: participate + trifecta */
+    .side-col {
+      padding: 72px 36px 80px;
+      display: flex;
+      flex-direction: column;
+      gap: 0;
+      position: sticky;
+      top: 0;
+      height: 100vh;
+      overflow-y: auto;
+      border-left: 1px solid var(--rule);
+    }
+
+    .bottom-wrap {
+      display: grid;
+      grid-template-columns: 1fr 380px;
+    }
+
+    .film-col {
+      padding: 48px 48px 80px 56px;
+      border-top: 1px solid var(--rule);
+    }
+
+    .curator-col {
+      padding: 48px 36px 80px;
+      border-left: 1px solid var(--rule);
+    }
+
+    /* ── Footer ── */
+    .footer-wrap {
+      border-top: 1px solid var(--rule);
+      padding: 40px 56px 64px;
+    }
+
+    /* ── Typography ── */
+    .site-header {
+      font-size: 10px;
+      font-weight: 400;
+      letter-spacing: 0.2em;
+      text-transform: uppercase;
       color: var(--muted);
-      letter-spacing: 0.08em;
-      margin-bottom: 32px;
+      margin-bottom: 64px;
+      line-height: 2.2;
     }
 
     h1 {
-      font-size: clamp(3rem, 10vw, 4.8rem);
+      font-family: 'EB Garamond', serif;
+      font-size: clamp(2rem, 4vw, 2.8rem);
       font-weight: 400;
-      font-style: italic;
-      line-height: 1.05;
+      line-height: 1.2;
+      margin-bottom: 44px;
       letter-spacing: -0.01em;
-      margin-bottom: 48px;
     }
 
-    /* ── sections ── */
-    section {
-      opacity: 0;
-      animation: fadeUp 1s ease forwards;
-      padding: 36px 0;
-      border-top: 1px solid var(--rule);
-    }
-
-    section:nth-of-type(1) { animation-delay: 0.3s; }
-    section:nth-of-type(2) { animation-delay: 0.5s; }
-    section:nth-of-type(3) { animation-delay: 0.65s; }
-    section:nth-of-type(4) { animation-delay: 0.8s; }
+    .section { margin-bottom: 36px; }
 
     p {
-      margin-bottom: 1em;
+      margin-bottom: 1.3em;
+      font-size: 16px;
     }
-    p:last-child {
-      margin-bottom: 0;
-    }
+    p:last-child { margin-bottom: 0; }
 
-    .lede {
-      font-size: clamp(1.15rem, 3vw, 1.35rem);
-      line-height: 1.55;
+    em {
+      font-family: 'EB Garamond', serif;
       font-style: italic;
+      font-size: 1.06em;
     }
 
-    .lede strong {
-      font-style: normal;
-      font-weight: 500;
+    .main-col hr {
+      border: none;
+      border-top: 1px solid var(--rule);
+      margin: 44px 0;
+      max-width: 480px;
     }
 
-    .body-text {
-      font-family: 'DM Sans', sans-serif;
-      font-size: 0.9rem;
-      font-weight: 300;
-      line-height: 1.65;
-      color: #2a2a28;
+    hr {
+      border: none;
+      border-top: 1px solid var(--rule);
+      margin: 36px 0;
     }
 
-    .emphasis {
-      font-style: italic;
-      font-size: clamp(1.1rem, 2.8vw, 1.3rem);
-      font-weight: 500;
-    }
-
-    /* ── how it works list ── */
-    ol {
+    /* ── Steps ── */
+    .steps {
       list-style: none;
-      margin-top: 8px;
+      counter-reset: step-counter;
+      margin: 20px 0;
     }
-
-    ol li {
-      display: grid;
-      grid-template-columns: 28px 1fr;
-      gap: 12px;
-      padding: 16px 0;
-      border-bottom: 1px solid var(--rule);
-      font-family: 'DM Sans', sans-serif;
-      font-size: 0.9rem;
-      font-weight: 300;
-      line-height: 1.55;
+    .steps li {
+      counter-increment: step-counter;
+      display: flex;
+      gap: 16px;
+      margin-bottom: 14px;
+      font-size: 14px;
+      align-items: flex-start;
     }
-
-    ol li:first-child {
-      border-top: 1px solid var(--rule);
-    }
-
-    .num {
-      font-family: 'DM Sans', sans-serif;
+    .steps li::before {
+      content: counter(step-counter, decimal-leading-zero);
+      font-size: 10px;
+      letter-spacing: 0.1em;
       color: var(--muted);
-      font-size: 0.75rem;
-      font-weight: 300;
-      padding-top: 3px;
+      padding-top: 4px;
+      min-width: 22px;
+      flex-shrink: 0;
     }
 
-    .consent {
-      font-family: 'DM Sans', sans-serif;
-      font-size: 0.8rem;
-      font-weight: 300;
-      color: var(--muted);
-      line-height: 1.7;
-      margin-top: 20px;
-      padding-top: 20px;
-      border-top: 1px solid var(--rule);
-    }
-
-    /* ── footer ── */
-    footer {
-      margin-top: auto;
-      padding: 40px 0 52px;
-      border-top: 1px solid var(--rule);
-      opacity: 0;
-      animation: fadeUp 1s ease forwards;
-      animation-delay: 1s;
-    }
-
-    footer p {
-      font-family: 'DM Sans', sans-serif;
-      font-size: 0.78rem;
-      font-weight: 300;
-      color: var(--muted);
-      line-height: 1.85;
-      letter-spacing: 0.02em;
-    }
-
-    footer a {
-      color: var(--muted);
+    /* ── Download link ── */
+    .download-link {
+      display: inline-block;
+      color: var(--accent);
       text-decoration: none;
-    }
-
-    footer a:hover {
-      color: var(--text);
-    }
-
-    .download-btn {
-      display: inline-flex;
-      align-items: center;
-      gap: 8px;
-      margin-top: 24px;
-      padding: 11px 20px;
-      border: 1px solid var(--rule);
-      font-family: 'DM Sans', sans-serif;
-      font-size: 0.82rem;
-      font-weight: 300;
-      color: var(--muted);
-      text-decoration: none;
-      letter-spacing: 0.04em;
+      font-size: 11.5px;
+      letter-spacing: 0.12em;
+      text-transform: uppercase;
+      border-bottom: 1px solid rgba(122,106,82,0.25);
+      padding-bottom: 2px;
       transition: border-color 0.2s, color 0.2s;
+      margin-bottom: 20px;
+      display: block;
+    }
+    .download-link:hover {
+      color: var(--text);
+      border-color: rgba(26,25,22,0.3);
     }
 
-    .download-btn:hover {
-      border-color: var(--text);
+    /* ── Section labels ── */
+    .section-location {
+      font-size: 10px;
+      letter-spacing: 0.2em;
+      text-transform: uppercase;
+      color: var(--muted);
+      margin-bottom: 16px;
+      display: block;
+    }
+
+    .section-label {
+      font-size: 10px;
+      letter-spacing: 0.2em;
+      text-transform: uppercase;
+      color: var(--text);
+      margin-bottom: 4px;
+      display: block;
+    }
+
+    .section-title {
+      font-size: 11px;
+      letter-spacing: 0.16em;
+      text-transform: uppercase;
+      color: var(--text);
+      margin-top: 28px;
+      margin-bottom: 12px;
+      display: block;
+      font-weight: 400;
+    }
+
+    .section-desc {
+      font-size: 14px;
+      color: var(--muted);
+      line-height: 1.75;
+      margin-bottom: 24px;
+    }
+
+    /* ── Film card ── */
+    .film-card {
+      display: block;
+      text-decoration: none;
+      border: 1px solid var(--rule);
+      overflow: hidden;
+      transition: border-color 0.25s;
+      max-width: 480px;
+    }
+    .film-card:hover { border-color: #b5b0a8; }
+
+    .film-thumb {
+      position: relative;
+      width: 100%;
+      padding-top: 56.25%;
+      background: #e0ddd7;
+      overflow: hidden;
+    }
+    .film-thumb img {
+      position: absolute;
+      inset: 0;
+      width: 100%; height: 100%;
+      object-fit: cover;
+      opacity: 0.88;
+      transition: opacity 0.3s;
+    }
+    .film-card:hover .film-thumb img { opacity: 1; }
+
+    .film-overlay {
+      position: absolute;
+      inset: 0;
+      display: flex;
+      align-items: center;
+      justify-content: center;
+    }
+    .film-play {
+      width: 48px; height: 48px;
+      border-radius: 50%;
+      border: 1px solid rgba(26,25,22,0.3);
+      display: flex;
+      align-items: center;
+      justify-content: center;
+      transition: transform 0.2s, border-color 0.2s;
+      background: rgba(245,243,239,0.5);
+    }
+    .film-card:hover .film-play {
+      transform: scale(1.08);
+      border-color: rgba(26,25,22,0.6);
+    }
+    .film-play svg {
+      width: 12px; height: 12px;
+      fill: var(--text);
+      margin-left: 3px;
+    }
+
+    .film-caption {
+      padding: 14px 18px 16px;
+      border-top: 1px solid var(--rule);
+      display: flex;
+      justify-content: space-between;
+      align-items: baseline;
+    }
+    .film-title {
+      font-family: 'EB Garamond', serif;
+      font-style: italic;
+      font-size: 1rem;
       color: var(--text);
     }
+    .film-cta {
+      font-size: 10px;
+      letter-spacing: 0.14em;
+      text-transform: uppercase;
+      color: var(--muted);
+    }
 
-        @keyframes fadeUp {
+    /* ── Curator list ── */
+    .curator-list {
+      list-style: none;
+      margin-top: 4px;
+    }
+    .curator-list li {
+      border-bottom: 1px solid var(--rule);
+    }
+    .curator-list a {
+      display: block;
+      padding: 8px 0;
+      font-size: 14px;
+      font-weight: 300;
+      color: var(--text);
+      text-decoration: none;
+      opacity: 0.6;
+      transition: opacity 0.15s, color 0.15s;
+    }
+    .curator-list a:hover {
+      opacity: 1;
+      color: var(--accent);
+    }
+
+
+    .participate-intro {
+      font-size: 14px;
+      color: var(--accent);
+      line-height: 1.9;
+      margin-top: 32px;
+      margin-bottom: 36px;
+      padding: 20px 0 28px 24px;
+      border-top: 1px solid var(--rule);
+      border-bottom: 1px solid var(--rule);
+      max-width: 480px;
+    }
+
+    .participate-intro p { margin-bottom: 0.6em; font-size: 14px; color: var(--accent); }
+    .participate-intro p:last-child { margin-bottom: 0; }
+
+    .arrow-inline {
+      display: inline-block;
+      width: 20px;
+      font-size: 12px;
+      color: var(--muted);
+      opacity: 0.7;
+    }
+
+    /* ── Connector arrow between film and curator cols ── */
+    .bottom-connector {
+      display: flex;
+      align-items: flex-start;
+      justify-content: center;
+      padding-top: 56px;
+      opacity: 0.2;
+    }
+
+    /* ── Animations ── */
+    @keyframes fadeUp {
       from { opacity: 0; transform: translateY(12px); }
       to   { opacity: 1; transform: translateY(0); }
     }
+    .main-col .inner > * { animation: fadeUp 0.65s ease both; }
+    .main-col .inner > *:nth-child(1) { animation-delay: 0s; }
+    .main-col .inner > *:nth-child(2) { animation-delay: 0.07s; }
+    .main-col .inner > *:nth-child(3) { animation-delay: 0.13s; }
+    .main-col .inner > *:nth-child(n+4) { animation-delay: 0.18s; }
+    .side-col > * { animation: fadeUp 0.65s ease both; animation-delay: 0.1s; }
+    .film-col > * { animation: fadeUp 0.65s ease both; animation-delay: 0.15s; }
+    .curator-col > * { animation: fadeUp 0.65s ease both; animation-delay: 0.2s; }
 
-    @media (max-width: 480px) {
-      body { padding: 0 22px; }
-      header { padding: 48px 0 0; }
+    /* col-footer — under film card and curator list on desktop */
+    .col-footer {
+      margin-top: 32px;
+      padding-top: 0;
+      font-size: 12px;
+      color: var(--muted);
+      line-height: 2;
+    }
+    .col-footer em { font-family: 'EB Garamond', serif; font-style: italic; }
+    .col-footer a { color: var(--muted); text-decoration: none; }
+    .col-footer a:hover { color: var(--accent); }
+
+    /* Mobile-only credits block — hidden on desktop */
+    .mobile-credits { display: none; }
+
+    /* ── Mobile ── */
+    @media (max-width: 780px) {
+      body { display: flex; flex-direction: column; }
+      .top-wrap, .bottom-wrap { display: contents; }
+
+      .main-col    { order: 1; border-right: none; border-bottom: 1px solid var(--rule); padding: 40px 24px; }
+      .film-col    { order: 2; border-top: 1px solid var(--rule); border-right: none; border-bottom: 1px solid var(--rule); padding: 40px 24px; }
+      .side-col    { order: 3; border-left: none; position: static; height: auto; padding: 40px 24px 48px; }
+      .curator-col { display: none; }
+      .film-col .col-footer { display: none; } /* hide desktop credits from film-col on mobile */
+
+      .mobile-credits {
+        order: 4;
+        display: block;
+        border-top: 1px solid var(--rule);
+        padding: 32px 24px 64px;
+        font-size: 12px;
+        color: var(--muted);
+        line-height: 2;
+      }
+      .mobile-credits em { font-family: 'EB Garamond', serif; font-style: italic; }
+      .mobile-credits a { color: var(--muted); text-decoration: none; }
+      .mobile-credits a:hover { color: var(--accent); }
+
+      /* Accordion */
+      .accordion-wrap {
+        display: block;
+        margin-top: 28px;
+        border-top: 1px solid var(--rule);
+      }
+      .accordion-toggle {
+        width: 100%;
+        background: none;
+        border: none;
+        padding: 16px 0;
+        display: flex;
+        justify-content: space-between;
+        align-items: center;
+        cursor: pointer;
+        font-family: 'Karla', sans-serif;
+        font-size: 11px;
+        font-weight: 400;
+        letter-spacing: 0.18em;
+        text-transform: uppercase;
+        color: var(--text);
+      }
+      .accordion-toggle .chevron { font-size: 14px; color: var(--muted); transition: transform 0.2s; }
+      .accordion-toggle.open .chevron { transform: rotate(180deg); }
+      .accordion-body { display: none; }
+      .accordion-body.open { display: block; padding-bottom: 24px; }
+    }
+
+    @media (min-width: 781px) {
+      .accordion-wrap { display: none; }
     }
   </style>
 </head>
 <body>
 
-  <header>
-    <p class="eyebrow">trifecta &nbsp;·&nbsp; lēʻahi gallery &nbsp;·&nbsp; capitol modern</p>
-    <h1>share<br>your<br>voice.</h1>
-  </header>
+<!-- ── Top: description (left) + participate (right) ── -->
+<div class="top-wrap">
 
-  <section>
-    <p class="lede">
-      In rehearsing the unknown together,<br>
-      <strong>Soundtrack for My Funeral</strong><br>
-      treats
-    </p>
-    <p class="emphasis">the unseen as inspiration.</p>
-    <br>
-    <p class="body-text">
-      Here, audio description —
-      usually a tool for making visual media accessible to blind and low-vision audiences —
-      becomes a way of
-    </p>
-    <p class="emphasis">making meaning together.</p>
-  </section>
+  <main class="main-col">
+    <div class="inner">
+      <header class="site-header">
+        soundtrack for my funeral
+      </header>
 
-  <section>
-    <p class="lede">what do you see?<br>what do you notice?</p>
-    <br>
-    <p class="body-text">
-      How would you describe this to someone in another room?<br>
-      It can be observational, poetic, personal — or all three.<br>
-      However you choose to do this, your perspective is welcome.
-    </p>
-    <br>
-    <p class="body-text">
-      Multiple voices describe the same work,
-      every perspective its own.
-      What emerges is collective —
-    </p>
-    <p class="emphasis">living.</p>
-  </section>
+      <h1>share your voice.</h1>
 
-  <section>
-    <p class="body-text" style="margin-bottom: 16px;">to participate, scan the QR code beside any artwork in the lēʻahi gallery. download the map to find each curator's code.</p>
-    <a href="SFMF_trifecta_voice_invite-for_web.pdf" download class="download-btn">
-      <svg width="14" height="14" viewBox="0 0 14 14" fill="none" xmlns="http://www.w3.org/2000/svg" aria-hidden="true">
-        <path d="M7 1v8M4 6.5l3 3 3-3M2 11h10" stroke="currentColor" stroke-width="1.2" stroke-linecap="round" stroke-linejoin="round"/>
-      </svg>
-      download the map &amp; guide
+      <div class="section">
+        <p>what do you see?<br>what do you notice?</p>
+
+        <p>How would you describe this to someone in another room?<br>
+        It can be observational, poetic, personal — or all three.<br>
+        However you choose to do this, your perspective is welcome.</p>
+      </div>
+
+      <div class="participate-intro">
+        <p>There are two ways to participate —</p>
+        <p>
+          <span class="arrow-inline">↓</span> a dance film in the Pō Amphitheater<br>
+          <span class="arrow-inline">→</span> 63 artworks in the Lēʻahi Gallery
+        </p>
+        <p>Both invite you to describe what you see.</p>
+      </div>
+
+      <div class="section" style="margin-top: 36px;">
+        <p>In this project, audio description —
+        usually a tool for making visual media accessible to blind and low-vision audiences —
+        becomes a way of making meaning together.</p>
+
+        <p>In rehearsing the unknown together,<br>
+        <em>Soundtrack for My Funeral</em><br>
+        treats the unseen as inspiration.</p>
+
+        <p>Multiple voices describe the same work,
+        every perspective its own.
+        What emerges is collective — living.</p>
+      </div>
+    </div>
+  </main>
+
+  <aside class="side-col">
+
+    <div style="padding-top: 120px;">
+
+      <span class="section-label">trifecta</span>
+      <span class="section-location">Lēʻahi Gallery &nbsp;·&nbsp; Capitol Modern</span>
+
+      <p class="section-desc">
+        21 curators, each presenting 3 works from the Art in Public Places Collection.
+      </p>
+
+      <span class="section-title">How to Participate</span>
+
+      <p class="section-desc">
+        Scan the QR code beside the artwork. You can also download the map to find
+        each curator's code, or click on the curator's name below to go directly to that artwork.
+      </p>
+
+      <a class="download-link" href="https://voice.bodyportaltheatre.com/SFMF_trifecta_voice_invite-for_web.pdf" target="_blank" rel="noopener">
+        download the map &amp; guide
+      </a>
+
+      <ol class="steps">
+        <li>stand with the work</li>
+        <li>record yourself describing what you see — aim for 30 seconds to 2 minutes</li>
+        <li>submit — and your voice becomes part of this work</li>
+      </ol>
+
+      <p style="font-size:12px; color:var(--muted); line-height:1.7; margin-top: 20px;">
+        With your consent, your recording becomes part of this project and the work's permanent public archive.
+        Recordings may be used as part of this project, this artwork's public archive, and for accessibility purposes.
+      </p>
+
+    </div>
+
+    <!-- Mobile accordion: curator list moves here on small screens -->
+    <div class="accordion-wrap">
+      <button class="accordion-toggle" id="curatorToggle" aria-expanded="false">
+        <span>Artwork by Curator</span>
+        <span class="chevron">↓</span>
+      </button>
+      <div class="accordion-body" id="curatorBody" role="region">
+        <ul class="curator-list">
+          <li><a href="/babcock.html">Babcock</a></li>
+          <li><a href="/bangerter.html">Bangerter</a></li>
+          <li><a href="/boggs.html">Boggs</a></li>
+          <li><a href="/chan.html">Chan</a></li>
+          <li><a href="/chimera.html">Chimera</a></li>
+          <li><a href="/elison.html">Elison</a></li>
+          <li><a href="/faris.html">Faris</a></li>
+          <li><a href="/french.html">French</a></li>
+          <li><a href="/gruspe.html">Gruspe</a></li>
+          <li><a href="/hazen.html">Hazen</a></li>
+          <li><a href="/king.html">King</a></li>
+          <li><a href="/kulundzic.html">Kulundzic</a></li>
+          <li><a href="/lum.html">Lum</a></li>
+          <li><a href="/mcmahon.html">McMahon</a></li>
+          <li><a href="/nehmad.html">Nehmad</a></li>
+          <li><a href="/stude.html">Stude</a></li>
+          <li><a href="/tanahy.html">Tanahy</a></li>
+          <li><a href="/trangmar.html">Trangmar</a></li>
+          <li><a href="/tubbs.html">Tubbs</a></li>
+          <li><a href="/tully.html">Tully</a></li>
+          <li><a href="/walguarnery.html">Walguarnery</a></li>
+        </ul>
+      </div>
+    </div>
+
+  </aside>
+
+</div>
+
+<!-- ── Bottom: film (left) + curator list (right) ── -->
+<div class="bottom-wrap">
+
+  <div class="film-col">
+    <span class="section-label">soundtrack for my funeral</span>
+    <span class="section-location">Pō Amphitheater &nbsp;·&nbsp; Capitol Modern</span>
+    <p class="section-desc" style="margin-bottom: 20px;">
+      A dance film — watch and describe what you see.<br>
+      Your description becomes its score.
+    </p>
+    <a class="film-card" href="/record">
+      <div class="film-thumb">
+        <!-- Uncomment once you have a still:
+        <img src="/record-thumb.jpg" alt="re:cord film still"> -->
+        <div class="film-overlay">
+          <div class="film-play">
+            <svg viewBox="0 0 16 16" xmlns="http://www.w3.org/2000/svg">
+              <polygon points="3,1 15,8 3,15"/>
+            </svg>
+          </div>
+        </div>
+      </div>
+      <div class="film-caption">
+        <span class="film-title">re:cord</span>
+        <span class="film-cta">watch &amp; describe →</span>
+      </div>
     </a>
-    <ol>
-      <li>
-        <span class="num">01</span>
-        <span>stand with the work</span>
-      </li>
-      <li>
-        <span class="num">02</span>
-        <span>record yourself describing what you see — aim for 30 seconds to 2 minutes</span>
-      </li>
-      <li>
-        <span class="num">03</span>
-        <span>submit — and your voice becomes part of this work</span>
-      </li>
-    </ol>
-    <p class="consent">
-      with your consent, your voice becomes part of this project and the work's permanent public archive.<br><br>
-      recording may be used as part of this project, this artwork's public archive and for accessibility purposes.
-    </p>
-  </section>
 
-  <section>
-    <p class="body-text">
-      This archive is one of the first public chapters of the work —
-    </p>
-    <br>
-    <p class="emphasis">Mahalo for sharing your voice.</p>
-    <br>
-    <p class="body-text">
-      <em>Soundtrack for My Funeral</em> is a community-collaborative project
-      developed through workshops, open rehearsals, and public dialogue.<br><br>
-      The recordings gathered here will become material for
-      an installation &amp; performance —
-    </p>
-    <p class="emphasis">May 16, 2026 &nbsp;·&nbsp; Capitol Modern</p>
-  </section>
-
-  <footer>
-    <p>
-      a project by body portal theatre<br>
+    <div class="col-footer">
+      <p><em>Soundtrack for My Funeral</em> is a community-collaborative project
+      developed through workshops, open rehearsals, and public dialogue.</p>
+      <br>
+      <p>The recordings gathered here will become material for
+      an installation &amp; performance —</p>
+      <br>
+      <p>May 16, 2026 &nbsp;·&nbsp; Capitol Modern</p>
+      <br>
+      <p>a project by body portal theatre<br>
       presented by UHM outreach college and capitol modern<br>
-      concept &amp; choreography sheenru yong<br>
-      <br>
-      state of hawaiʻi &nbsp;·&nbsp; art in public places<br>
-      trifecta &nbsp;·&nbsp; february 4 – july, 2026<br>
-      <br>
-      <a href="https://instagram.com/bodyportaltheatre" target="_blank">@bodyportaltheatre</a>
-    </p>
-  </footer>
+      concept &amp; choreography sheenru yong<br><br>
+      <a href="https://bodyportaltheatre.com" target="_blank" rel="noopener">bodyportaltheatre.com</a></p>
+    </div>
+  </div>
 
+  <div class="curator-col">
+    <span class="section-title">Artwork by Curator</span>
+    <ul class="curator-list">
+      <li><a href="/babcock.html">Babcock</a></li>
+      <li><a href="/bangerter.html">Bangerter</a></li>
+      <li><a href="/boggs.html">Boggs</a></li>
+      <li><a href="/chan.html">Chan</a></li>
+      <li><a href="/chimera.html">Chimera</a></li>
+      <li><a href="/elison.html">Elison</a></li>
+      <li><a href="/faris.html">Faris</a></li>
+      <li><a href="/french.html">French</a></li>
+      <li><a href="/gruspe.html">Gruspe</a></li>
+      <li><a href="/hazen.html">Hazen</a></li>
+      <li><a href="/king.html">King</a></li>
+      <li><a href="/kulundzic.html">Kulundzic</a></li>
+      <li><a href="/lum.html">Lum</a></li>
+      <li><a href="/mcmahon.html">McMahon</a></li>
+      <li><a href="/nehmad.html">Nehmad</a></li>
+      <li><a href="/stude.html">Stude</a></li>
+      <li><a href="/tanahy.html">Tanahy</a></li>
+      <li><a href="/trangmar.html">Trangmar</a></li>
+      <li><a href="/tubbs.html">Tubbs</a></li>
+      <li><a href="/tully.html">Tully</a></li>
+      <li><a href="/walguarnery.html">Walguarnery</a></li>
+    </ul>
+
+    <div class="col-footer">
+      <p>state of hawaiʻi &nbsp;·&nbsp; art in public places</p>
+      <br>
+      <p><a href="https://www.capitolmodern.org/exhibits/trifecta" target="_blank" rel="noopener">trifecta &nbsp;·&nbsp; february 4 – july, 2026</a><br>
+      <a href="https://www.capitolmodern.org" target="_blank" rel="noopener">capitolmodern.org</a></p>
+    </div>
+  </div>
+
+</div>
+
+<!-- Mobile-only credits at very bottom -->
+<div class="mobile-credits">
+  <p><em>Soundtrack for My Funeral</em> is a community-collaborative project
+  developed through workshops, open rehearsals, and public dialogue.</p>
+  <br>
+  <p>The recordings gathered here will become material for
+  an installation &amp; performance —</p>
+  <br>
+  <p>May 16, 2026 &nbsp;·&nbsp; Capitol Modern</p>
+  <br>
+  <p>a project by body portal theatre<br>
+  presented by UHM outreach college and capitol modern<br>
+  concept &amp; choreography sheenru yong<br><br>
+  <a href="https://bodyportaltheatre.com" target="_blank" rel="noopener">bodyportaltheatre.com</a><br>
+  state of hawaiʻi &nbsp;·&nbsp; art in public places<br>
+  <a href="https://www.capitolmodern.org/exhibits/trifecta" target="_blank" rel="noopener">trifecta &nbsp;·&nbsp; february 4 – july, 2026</a><br>
+  <a href="https://www.capitolmodern.org" target="_blank" rel="noopener">capitolmodern.org</a></p>
+</div>
+
+<script>
+  const toggle = document.getElementById('curatorToggle');
+  const body   = document.getElementById('curatorBody');
+  if (toggle && body) {
+    toggle.addEventListener('click', () => {
+      const open = body.classList.toggle('open');
+      toggle.classList.toggle('open', open);
+      toggle.setAttribute('aria-expanded', open);
+    });
+  }
+</script>
 </body>
 </html>
