@@ -395,7 +395,7 @@
     reader.onloadend=async()=>{
       progressBar.style.width='50%';
       await fetch(APPS_SCRIPT_URL,{method:'POST',mode:'no-cors',headers:{'Content-Type':'application/json'},
-        body:JSON.stringify({filename,fileData:reader.result.split(',')[1],mimeType:audioBlob.type,artworkTitle:'DanceSolo',consent:true})});
+        body:JSON.stringify({filename,audioBase64:reader.result.split(',')[1],mimeType:audioBlob.type,workLabel:'DanceSolo',consent:true})});
       progressBar.style.width='100%';
       setTimeout(()=>progressWrap.classList.remove('visible'),600);
       statusMsg.textContent='Thank you. Your voice has been added.';
