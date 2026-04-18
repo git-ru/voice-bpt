@@ -467,7 +467,16 @@
       statusMsg.textContent='Thank you. Your voice has been added.';
       statusMsg.className='status-msg success';
       btnSubmit.textContent='submitted';
-      setTimeout(()=>location.reload(), 10000);
+      setTimeout(()=>{
+        audioBlob=null; audioPlayback.src='';
+        postRecord.classList.remove('visible');
+        recordControls.style.display='flex';
+        btnSubmit.disabled=true; btnRetake.disabled=false;
+        btnSubmit.textContent='submit';
+        consentCheck.checked=false;
+        btnLabel.textContent='tap to record'; timerEl.textContent='';
+        statusMsg.textContent=''; statusMsg.className='status-msg';
+      }, 10000);
     };
   });
 </script>
