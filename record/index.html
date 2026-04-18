@@ -39,6 +39,57 @@
       border-bottom: 1px solid var(--rule);
       flex-shrink: 0;
     }
+
+    /* Main content: video left, panel right */
+    .main-content {
+      flex: 1;
+      display: grid;
+      grid-template-columns: 1fr 280px;
+      min-height: 0;
+    }
+
+    .film-wrap {
+      position: relative;
+      background: #111;
+      overflow: hidden;
+    }
+    .film-wrap iframe {
+      position: absolute;
+      inset: 0;
+      width: 100%;
+      height: 100%;
+      border: none;
+    }
+
+    /* Right panel: instructions + recording */
+    .right-panel {
+      border-left: 1px solid var(--rule);
+      display: flex;
+      flex-direction: column;
+      padding: 28px 24px;
+      gap: 28px;
+      overflow-y: auto;
+    }
+
+    .instructions {
+      font-size: 14px;
+      color: var(--text);
+      line-height: 1.75;
+    }
+    .instructions p + p {
+      margin-top: 8px;
+      font-size: 12px;
+      color: var(--muted);
+    }
+
+    /* Recording zone */
+    .recording-zone {
+      display: flex;
+      flex-direction: column;
+      gap: 12px;
+      border-top: 1px solid var(--rule);
+      padding-top: 20px;
+    }
     .page-title {
       font-family: 'EB Garamond', serif;
       font-size: clamp(1.8rem, 3.5vw, 2.6rem);
@@ -75,25 +126,32 @@
     .bottom-bar {
       flex-shrink: 0;
       border-top: 1px solid var(--rule);
-      padding: 20px 40px;
+      padding: 16px 32px;
       display: grid;
-      grid-template-columns: 1fr auto 1fr;
+      grid-template-columns: 1fr 1px 1fr;
       align-items: center;
-      gap: 32px;
+      gap: 0;
+      min-height: 90px;
     }
 
-    .invitation-left {
-      font-size: 16px;
+    .instructions {
+      font-size: 13px;
       color: var(--text);
-      line-height: 1.6;
-      text-align: right;
+      line-height: 1.7;
+      padding-right: 28px;
     }
 
-    .invitation-right {
-      font-size: 16px;
-      color: var(--text);
-      line-height: 1.6;
-      text-align: left;
+    .divider {
+      background: var(--rule);
+      height: 60px;
+      width: 1px;
+    }
+
+    .recording-side {
+      padding-left: 28px;
+      display: flex;
+      align-items: center;
+      gap: 16px;
     }
 
     /* Center mic zone */
@@ -127,8 +185,8 @@
     .post-record {
       display: none;
       flex-direction: column;
-      align-items: center;
-      gap: 10px;
+      gap: 6px;
+      width: 100%;
     }
     .post-record.visible { display: flex; }
 
@@ -261,11 +319,11 @@
 
     @media (max-width: 600px) {
       html, body { overflow: auto; height: auto; }
-      .film-wrap { height: 56vw; flex: none; }
-      .bottom-bar { flex-direction: column; align-items: flex-start; gap: 20px; padding: 20px 24px; }
-      .post-record { flex-direction: column; align-items: flex-start; }
-      audio { width: 100%; }
+      .main-content { grid-template-columns: 1fr; }
+      .film-wrap { height: 56vw; }
+      .right-panel { border-left: none; border-top: 1px solid var(--rule); }
       .consent-label { max-width: 100%; }
+      audio { width: 100%; }
     }
   </style>
 </head>
@@ -276,58 +334,66 @@
     <a class="back-link" href="/">share your voice</a>
   </header>
 
-  <div class="film-wrap">
-    <iframe
-      src="https://player.vimeo.com/video/520577254?h=6b5d6b96f8&badge=0&autopause=0&player_id=0&app_id=58479&autoplay=1&muted=1&loop=1&controls=0"
-      frameborder="0"
-      allow="autoplay; fullscreen; picture-in-picture; clipboard-write; encrypted-media; web-share"
-      referrerpolicy="strict-origin-when-cross-origin"
-      style="position:absolute;top:0;left:0;width:100%;height:100%;"
-      title="re:cord">
-    </iframe>
-  </div>
-  <script src="https://player.vimeo.com/api/player.js"></script>
+  <div class="main-content">
 
-  <div class="bottom-bar">
+    <!-- Left: video -->
+    <div class="film-wrap">
+      <iframe
+        src="https://player.vimeo.com/video/520577254?h=6b5d6b96f8&badge=0&autopause=0&player_id=0&app_id=58479&autoplay=1&muted=1&loop=1&controls=0"
+        frameborder="0"
+        allow="autoplay; fullscreen; picture-in-picture; clipboard-write; encrypted-media; web-share"
+        referrerpolicy="strict-origin-when-cross-origin"
+        style="position:absolute;top:0;left:0;width:100%;height:100%;"
+        title="re:cord">
+      </iframe>
+    </div>
+    <script src="https://player.vimeo.com/api/player.js"></script>
 
-    <p class="invitation-left">Watch the film.<br>Describe what you see.</p>
+    <!-- Right: instructions + recording -->
+    <div class="right-panel">
 
-    <div class="mic-center">
-      <div class="rec-status">
-        <div class="recording-indicator" id="recIndicator">
-          <div class="rec-dot"></div> rec
-        </div>
-        <div class="timer-display" id="timer"></div>
-      </div>
-      <div class="record-controls" id="recordControls">
-        <button class="btn-record" id="btnRecord" title="Start recording">
-          <svg class="icon-mic" viewBox="0 0 24 24">
-            <rect x="9" y="2" width="6" height="11" rx="3"/>
-            <path d="M5 10a7 7 0 0 0 14 0"/>
-            <line x1="12" y1="17" x2="12" y2="21"/>
-            <line x1="8" y1="21" x2="16" y2="21"/>
-          </svg>
-          <div class="icon-stop"></div>
-        </button>
-        <span class="btn-label" id="btnLabel">tap to record</span>
+      <div class="instructions">
+        <p>Watch the film.<br>Describe what you see.</p>
+        <p>It can be observational, poetic, personal — or all three. However you choose to do this, your perspective is welcome.</p>
       </div>
 
-      <div class="post-record" id="postRecord">
-        <audio id="audioPlayback" controls></audio>
-        <div class="btn-row-center">
-          <button class="btn" id="btnRetake">retake</button>
-          <button class="btn primary" id="btnSubmit" disabled>submit</button>
+      <div class="recording-zone">
+
+        <!-- State 1 & 2: mic -->
+        <div id="recordControls" style="display:flex; flex-direction:column; gap:8px;">
+          <div class="recording-indicator" id="recIndicator">
+            <div class="rec-dot"></div> recording
+          </div>
+          <div class="timer-display" id="timer"></div>
+          <span class="btn-label" id="btnLabel">tap to record</span>
+          <button class="btn-record" id="btnRecord" title="Start recording">
+            <svg class="icon-mic" viewBox="0 0 24 24">
+              <rect x="9" y="2" width="6" height="11" rx="3"/>
+              <path d="M5 10a7 7 0 0 0 14 0"/>
+              <line x1="12" y1="17" x2="12" y2="21"/>
+              <line x1="8" y1="21" x2="16" y2="21"/>
+            </svg>
+            <div class="icon-stop"></div>
+          </button>
         </div>
-        <label class="consent-label">
-          <input type="checkbox" id="consentCheck">
-          <span>I consent to this recording being used as part of <em>Soundtrack for My Funeral</em>.</span>
-        </label>
-        <div class="progress-bar-wrap" id="progressWrap"><div class="progress-bar" id="progressBar"></div></div>
-        <span class="status-msg" id="statusMsg"></span>
+
+        <!-- State 3: after recording -->
+        <div id="postRecord" class="post-record">
+          <audio id="audioPlayback" controls></audio>
+          <div style="display:flex; gap:8px; margin-top:6px;">
+            <button class="btn primary" id="btnSubmit" disabled>submit</button>
+            <button class="btn" id="btnRetake">retake</button>
+          </div>
+          <label class="consent-label" style="margin-top:8px;">
+            <input type="checkbox" id="consentCheck">
+            <span>I consent to this recording being used as part of <em>Soundtrack for My Funeral</em>.</span>
+          </label>
+          <div class="progress-bar-wrap" id="progressWrap"><div class="progress-bar" id="progressBar"></div></div>
+          <span class="status-msg" id="statusMsg"></span>
+        </div>
+
       </div>
     </div>
-
-    <p class="invitation-right">It can be observational, poetic, personal — or all three. However you choose to do this, your perspective is welcome.</p>
 
   </div>
 
@@ -377,7 +443,7 @@
   btnRetake.addEventListener('click',()=>{
     audioBlob=null;audioPlayback.src='';
     postRecord.classList.remove('visible');
-    recordControls.style.display='';
+    recordControls.style.display='flex';
     btnSubmit.disabled=true;consentCheck.checked=false;
     btnLabel.textContent='tap to record';timerEl.textContent='';
     statusMsg.textContent='';statusMsg.className='status-msg';
