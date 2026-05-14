@@ -247,8 +247,9 @@ async function submitRecording(id, folder) {
     const base64 = await blobToBase64(blob);
     const timestamp = new Date().toISOString().replace(/[:.]/g, '-').slice(0, 19);
     const payload = {
-      folder: folder,
-      filename: folder + '_' + timestamp + '.' + (blob.type.includes('mp4') ? 'm4a' : 'webm'),
+      workLabel: folder,
+      workId: folder,
+      curator: 'dancer',
       audioBase64: base64,
       mimeType: blob.type || 'audio/webm',
       timestamp: new Date().toISOString()
@@ -286,8 +287,9 @@ async function handleFileUpload(event) {
   try {
     const base64 = await blobToBase64(file);
     const payload = {
-      folder: 'Sounds_From_Life',
-      filename: 'Sounds_From_Life_upload_' + file.name.replace(/[^a-zA-Z0-9._-]/g, '_'),
+      workLabel: 'Sounds_From_Life',
+      workId: 'Sounds_From_Life',
+      curator: 'dancer',
       audioBase64: base64,
       mimeType: file.type,
       timestamp: new Date().toISOString()
