@@ -204,6 +204,9 @@ async function toggleRecording(id) {
       const blob = new Blob(chunks, { type: mr.mimeType || 'audio/webm' });
       recordedBlobs[id] = blob;
       audio.src = URL.createObjectURL(blob);
+      // reset submit button in case it was disabled from a previous send
+      const btn = document.querySelector('#post-' + id + ' .submit-btn');
+      if (btn) { btn.textContent = 'send'; btn.disabled = false; }
       post.classList.add('visible');
       stream.getTracks().forEach(t => t.stop());
     };
