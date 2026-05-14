@@ -247,16 +247,15 @@ async function submitRecording(id, folder) {
     const base64 = await blobToBase64(blob);
     const timestamp = new Date().toISOString().replace(/[:.]/g, '-').slice(0, 19);
     const payload = {
-      workLabel: folder,
-      workId: folder,
+      workLabel: 'Journal/' + folder,
+      workId: 'Journal/' + folder,
       curator: 'dancer',
       audioBase64: base64,
       mimeType: blob.type || 'audio/webm',
       timestamp: new Date().toISOString()
     };
-    await fetch(RECEIVER_URL, { method: 'POST', mode: 'no-cors', headers: { 'Content-Type': 'application/json' }, body: JSON.stringify(payload) });
+    fetch(RECEIVER_URL, { method: 'POST', mode: 'no-cors', headers: { 'Content-Type': 'application/json' }, body: JSON.stringify(payload) });
     document.getElementById('post-' + id).classList.remove('visible');
-    ring_hide(id);
     statusEl.textContent = 'received. thank you.';
     statusEl.className = 'status-msg visible';
   } catch(e) {
@@ -287,14 +286,14 @@ async function handleFileUpload(event) {
   try {
     const base64 = await blobToBase64(file);
     const payload = {
-      workLabel: 'Sounds_From_Life',
-      workId: 'Sounds_From_Life',
+      workLabel: 'Journal/Sounds_From_Life',
+      workId: 'Journal/Sounds_From_Life',
       curator: 'dancer',
       audioBase64: base64,
       mimeType: file.type,
       timestamp: new Date().toISOString()
     };
-    await fetch(RECEIVER_URL, { method: 'POST', mode: 'no-cors', headers: { 'Content-Type': 'application/json' }, body: JSON.stringify(payload) });
+    fetch(RECEIVER_URL, { method: 'POST', mode: 'no-cors', headers: { 'Content-Type': 'application/json' }, body: JSON.stringify(payload) });
     statusSpan.textContent = 'received';
     statusSpan.className = 'recording-item-status success';
   } catch(e) {
