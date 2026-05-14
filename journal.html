@@ -100,8 +100,8 @@ footer { max-width: 600px; margin: 3rem auto 0; padding: 1.5rem 1.75rem 0; borde
         <button class="submit-btn" onclick="submitRecording('1','Moving_Without_Sight')">send</button>
         <button class="discard-btn" onclick="discardRecording('1')">discard</button>
       </div>
-      <div class="status-msg" id="status-1"></div>
     </div>
+    <div class="status-msg" id="status-1"></div>
   </div>
 
   <!-- PROMPT 2 -->
@@ -119,8 +119,8 @@ footer { max-width: 600px; margin: 3rem auto 0; padding: 1.5rem 1.75rem 0; borde
         <button class="submit-btn" onclick="submitRecording('2','Co-Creating_Unknown')">send</button>
         <button class="discard-btn" onclick="discardRecording('2')">discard</button>
       </div>
-      <div class="status-msg" id="status-2"></div>
     </div>
+    <div class="status-msg" id="status-2"></div>
   </div>
 
   <!-- PROMPT 3 -->
@@ -139,8 +139,8 @@ footer { max-width: 600px; margin: 3rem auto 0; padding: 1.5rem 1.75rem 0; borde
         <button class="submit-btn" onclick="submitRecording('3','Sounds_From_Life')">send</button>
         <button class="discard-btn" onclick="discardRecording('3')">discard</button>
       </div>
-      <div class="status-msg" id="status-3"></div>
     </div>
+    <div class="status-msg" id="status-3"></div>
     <div class="or-divider">or upload a file</div>
     <label class="file-input-label">
       upload audio file
@@ -254,7 +254,7 @@ async function submitRecording(id, folder) {
       mimeType: blob.type || 'audio/webm',
       timestamp: new Date().toISOString()
     };
-    fetch(RECEIVER_URL, { method: 'POST', mode: 'no-cors', headers: { 'Content-Type': 'application/json' }, body: JSON.stringify(payload) });
+    await fetch(RECEIVER_URL, { method: 'POST', mode: 'no-cors', headers: { 'Content-Type': 'application/json' }, body: JSON.stringify(payload) });
     document.getElementById('post-' + id).classList.remove('visible');
     statusEl.textContent = 'received. thank you.';
     statusEl.className = 'status-msg visible';
