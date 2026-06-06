@@ -29,14 +29,12 @@
       min-height: 100vh;
     }
 
-    /* ── Top: two columns ── */
     .top-wrap {
       display: grid;
       grid-template-columns: 1fr 380px;
       min-height: 100vh;
     }
 
-    /* Left: project description */
     .main-col {
       padding: 72px 48px 80px 56px;
       border-right: 1px solid var(--rule);
@@ -48,7 +46,6 @@
       max-width: 480px;
     }
 
-    /* Right: participate + trifecta */
     .side-col {
       padding: 72px 36px 80px;
       display: flex;
@@ -76,7 +73,6 @@
       border-left: 1px solid var(--rule);
     }
 
-    /* ── Footer ── */
     .footer-wrap {
       border-top: 1px solid var(--rule);
       padding: 40px 56px 64px;
@@ -129,7 +125,6 @@
       margin: 36px 0;
     }
 
-    /* ── Steps ── */
     .steps {
       list-style: none;
       counter-reset: step-counter;
@@ -153,7 +148,6 @@
       flex-shrink: 0;
     }
 
-    /* ── Download link ── */
     .download-link {
       display: inline-block;
       color: var(--accent);
@@ -172,7 +166,6 @@
       border-color: rgba(26,25,22,0.3);
     }
 
-    /* ── Section labels ── */
     .section-location {
       font-size: 10px;
       letter-spacing: 0.2em;
@@ -208,6 +201,146 @@
       line-height: 1.75;
       margin-bottom: 24px;
     }
+
+    /* ── Sound prompt section ── */
+    .sound-prompt {
+      padding-top: 0;
+      padding-bottom: 36px;
+      border-bottom: 1px solid var(--rule);
+      margin-bottom: 36px;
+    }
+
+    .sound-prompt h2 {
+      font-family: 'EB Garamond', serif;
+      font-size: clamp(1.6rem, 3.5vw, 2.2rem);
+      font-weight: 400;
+      line-height: 1.25;
+      margin-bottom: 20px;
+      letter-spacing: -0.01em;
+    }
+
+    .sound-prompt .prompt-note {
+      font-size: 13px;
+      color: var(--muted);
+      line-height: 1.8;
+      margin-bottom: 24px;
+      max-width: 300px;
+    }
+
+    /* ── Ring recorder ── */
+    .recorder-wrap {
+      display: flex;
+      align-items: center;
+      gap: 16px;
+      margin-bottom: 12px;
+    }
+
+    .rec-ring {
+      width: 56px;
+      height: 56px;
+      border-radius: 50%;
+      border: 1.5px solid var(--text);
+      background: none;
+      cursor: pointer;
+      display: flex;
+      align-items: center;
+      justify-content: center;
+      flex-shrink: 0;
+      -webkit-tap-highlight-color: transparent;
+      padding: 0;
+      transition: border-color 0.2s;
+    }
+    .rec-ring .dot {
+      width: 18px;
+      height: 18px;
+      border-radius: 50%;
+      background: var(--text);
+      transition: background 0.2s, border-radius 0.25s, transform 0.2s;
+      pointer-events: none;
+    }
+    .rec-ring.recording {
+      border-color: #b83232;
+      animation: ring-pulse 1.4s ease-in-out infinite;
+    }
+    .rec-ring.recording .dot {
+      background: #b83232;
+      border-radius: 3px;
+      transform: scale(0.85);
+    }
+    @keyframes ring-pulse {
+      0%, 100% { box-shadow: 0 0 0 0 rgba(184,50,50,0.25); }
+      50%       { box-shadow: 0 0 0 10px rgba(184,50,50,0); }
+    }
+
+    .rec-label {
+      font-size: 13px;
+      font-weight: 300;
+      letter-spacing: 0.06em;
+      color: var(--muted);
+    }
+    .rec-timer {
+      font-size: 12px;
+      color: #b83232;
+      letter-spacing: 0.1em;
+      font-variant-numeric: tabular-nums;
+      display: none;
+      margin-left: 4px;
+    }
+    .rec-timer.active { display: inline; }
+
+    .post-record {
+      display: none;
+      flex-direction: column;
+      gap: 10px;
+      margin-top: 12px;
+    }
+    .post-record.visible { display: flex; }
+
+    audio { width: 100%; height: 34px; }
+
+    .btn-row { display: flex; gap: 12px; align-items: center; }
+
+    .submit-btn {
+      background: var(--text);
+      color: var(--bg);
+      border: none;
+      padding: 0.5rem 1.4rem;
+      font-family: 'Karla', sans-serif;
+      font-size: 11px;
+      font-weight: 300;
+      letter-spacing: 0.14em;
+      cursor: pointer;
+      border-radius: 2px;
+      transition: opacity 0.15s;
+    }
+    .submit-btn:hover { opacity: 0.8; }
+    .submit-btn:disabled { opacity: 0.4; cursor: default; }
+
+    .discard-btn {
+      background: none;
+      border: none;
+      font-family: 'Karla', sans-serif;
+      font-size: 11px;
+      font-weight: 300;
+      letter-spacing: 0.1em;
+      color: var(--muted);
+      cursor: pointer;
+      padding: 0.5rem 0;
+      text-decoration: underline;
+      text-underline-offset: 3px;
+    }
+    .discard-btn:hover { color: var(--text); }
+
+    .status-msg {
+      font-family: 'EB Garamond', serif;
+      font-size: 15px;
+      font-style: italic;
+      color: var(--muted);
+      display: none;
+      margin-top: 4px;
+    }
+    .status-msg.visible { display: block; }
+    .status-msg.error { font-style: normal; font-family: 'Karla', sans-serif; font-size: 12px; color: #b83232; }
 
     /* ── Film card ── */
     .film-card {
@@ -254,15 +387,8 @@
       transition: transform 0.2s, border-color 0.2s;
       background: rgba(245,243,239,0.5);
     }
-    .film-card:hover .film-play {
-      transform: scale(1.08);
-      border-color: rgba(26,25,22,0.6);
-    }
-    .film-play svg {
-      width: 12px; height: 12px;
-      fill: var(--text);
-      margin-left: 3px;
-    }
+    .film-card:hover .film-play { transform: scale(1.08); border-color: rgba(26,25,22,0.6); }
+    .film-play svg { width: 12px; height: 12px; fill: var(--text); margin-left: 3px; }
 
     .film-caption {
       padding: 14px 18px 16px;
@@ -271,27 +397,12 @@
       justify-content: space-between;
       align-items: baseline;
     }
-    .film-title {
-      font-family: 'EB Garamond', serif;
-      font-style: italic;
-      font-size: 1rem;
-      color: var(--text);
-    }
-    .film-cta {
-      font-size: 10px;
-      letter-spacing: 0.14em;
-      text-transform: uppercase;
-      color: var(--muted);
-    }
+    .film-title { font-family: 'EB Garamond', serif; font-style: italic; font-size: 1rem; color: var(--text); }
+    .film-cta { font-size: 10px; letter-spacing: 0.14em; text-transform: uppercase; color: var(--muted); }
 
     /* ── Curator list ── */
-    .curator-list {
-      list-style: none;
-      margin-top: 4px;
-    }
-    .curator-list li {
-      border-bottom: 1px solid var(--rule);
-    }
+    .curator-list { list-style: none; margin-top: 4px; }
+    .curator-list li { border-bottom: 1px solid var(--rule); }
     .curator-list a {
       display: block;
       padding: 8px 0;
@@ -302,11 +413,7 @@
       opacity: 0.6;
       transition: opacity 0.15s, color 0.15s;
     }
-    .curator-list a:hover {
-      opacity: 1;
-      color: var(--accent);
-    }
-
+    .curator-list a:hover { opacity: 1; color: var(--accent); }
 
     .participate-intro {
       font-size: 14px;
@@ -319,7 +426,6 @@
       border-bottom: 1px solid var(--rule);
       max-width: 480px;
     }
-
     .participate-intro p { margin-bottom: 0.6em; font-size: 14px; color: var(--accent); }
     .participate-intro p:last-child { margin-bottom: 0; }
 
@@ -329,15 +435,6 @@
       font-size: 12px;
       color: var(--muted);
       opacity: 0.7;
-    }
-
-    /* ── Connector arrow between film and curator cols ── */
-    .bottom-connector {
-      display: flex;
-      align-items: flex-start;
-      justify-content: center;
-      padding-top: 56px;
-      opacity: 0.2;
     }
 
     /* ── Animations ── */
@@ -354,10 +451,8 @@
     .film-col > * { animation: fadeUp 0.65s ease both; animation-delay: 0.15s; }
     .curator-col > * { animation: fadeUp 0.65s ease both; animation-delay: 0.2s; }
 
-    /* col-footer — under film card and curator list on desktop */
     .col-footer {
       margin-top: 32px;
-      padding-top: 0;
       font-size: 12px;
       color: var(--muted);
       line-height: 2;
@@ -366,7 +461,6 @@
     .col-footer a { color: var(--muted); text-decoration: none; }
     .col-footer a:hover { color: var(--accent); }
 
-    /* Mobile-only credits block — hidden on desktop */
     .mobile-credits { display: none; }
 
     /* ── Mobile ── */
@@ -378,7 +472,9 @@
       .film-col    { order: 2; border-top: 1px solid var(--rule); border-right: none; border-bottom: 1px solid var(--rule); padding: 40px 24px; }
       .side-col    { order: 3; border-left: none; position: static; height: auto; padding: 40px 24px 48px; }
       .curator-col { display: none; }
-      .film-col .col-footer { display: none; } /* hide desktop credits from film-col on mobile */
+      .film-col .col-footer { display: none; }
+
+      .sound-prompt { padding-bottom: 28px; }
 
       .mobile-credits {
         order: 4;
@@ -393,7 +489,6 @@
       .mobile-credits a { color: var(--muted); text-decoration: none; }
       .mobile-credits a:hover { color: var(--accent); }
 
-      /* Accordion */
       .accordion-wrap {
         display: block;
         margin-top: 28px;
@@ -428,7 +523,6 @@
 </head>
 <body>
 
-<!-- ── Top: description (left) + participate (right) ── -->
 <div class="top-wrap">
 
   <main class="main-col">
@@ -448,12 +542,12 @@
       </div>
 
       <div class="participate-intro">
-        <p>There are two ways to participate —</p>
+        <p>There are three ways to participate —</p>
         <p>
           <span class="arrow-inline">↓</span> a dance film in the Pō Amphitheater<br>
-          <span class="arrow-inline">→</span> 63 artworks in the Lēʻahi Gallery
+          <span class="arrow-inline">→</span> 63 artworks in the Lēʻahi Gallery<br>
+          <span class="arrow-inline">↗</span> sounds from your life, anywhere
         </p>
-        <p>Both invite you to describe what you see.</p>
       </div>
 
       <div class="section" style="margin-top: 36px;">
@@ -474,7 +568,31 @@
 
   <aside class="side-col">
 
-    <div style="padding-top: 120px;">
+    <!-- ── Sound prompt — top of right column ── -->
+    <div class="sound-prompt">
+      <h2>What sounds would you miss hearing?</h2>
+      <p class="prompt-note">Record a sound from your life — anywhere, anytime. It becomes part of a collective archive.</p>
+
+      <div class="recorder-wrap">
+        <button class="rec-ring" id="ring-s" onclick="toggleRecording()">
+          <span class="dot"></span>
+        </button>
+        <span class="rec-label" id="rec-label">tap to record</span>
+        <span class="rec-timer" id="rec-timer">0:00</span>
+      </div>
+
+      <div class="post-record" id="post-record">
+        <audio id="rec-audio" controls></audio>
+        <div class="btn-row">
+          <button class="submit-btn" id="submit-btn" onclick="submitRecording()">send</button>
+          <button class="discard-btn" onclick="discardRecording()">discard</button>
+        </div>
+      </div>
+      <div class="status-msg" id="rec-status"></div>
+    </div>
+
+    <!-- ── Trifecta section ── -->
+    <div style="padding-bottom: 36px;">
 
       <span class="section-label">trifecta</span>
       <span class="section-location">Lēʻahi Gallery &nbsp;·&nbsp; Capitol Modern</span>
@@ -507,7 +625,7 @@
 
     </div>
 
-    <!-- Mobile accordion: curator list moves here on small screens -->
+    <!-- Mobile accordion -->
     <div class="accordion-wrap">
       <button class="accordion-toggle" id="curatorToggle" aria-expanded="false">
         <span>Artwork by Curator</span>
@@ -544,7 +662,7 @@
 
 </div>
 
-<!-- ── Bottom: film (left) + curator list (right) ── -->
+<!-- ── Bottom: film + curator list ── -->
 <div class="bottom-wrap">
 
   <div class="film-col">
@@ -578,7 +696,7 @@
       <p>The recordings gathered here will become material for
       an installation &amp; performance —</p>
       <br>
-      <p>May 16, 2026 &nbsp;·&nbsp; Capitol Modern</p>
+      <p>June 6, 2026 &nbsp;·&nbsp; Capitol Modern</p>
       <br>
       <p>a project by body portal theatre<br>
       presented by UHM outreach college and capitol modern<br>
@@ -616,14 +734,14 @@
     <div class="col-footer">
       <p>state of hawaiʻi &nbsp;·&nbsp; art in public places</p>
       <br>
-      <p><a href="https://www.capitolmodern.org/exhibits/trifecta" target="_blank" rel="noopener">trifecta &nbsp;·&nbsp; february 4 – july, 2026</a><br>
+      <p><a href="https://www.capitolmodern.org/exhibits/trifecta" target="_blank" rel="noopener">trifecta &nbsp;·&nbsp; february 4 – july 4, 2026</a><br>
       <a href="https://www.capitolmodern.org" target="_blank" rel="noopener">capitolmodern.org</a></p>
     </div>
   </div>
 
 </div>
 
-<!-- Mobile-only credits at very bottom -->
+<!-- Mobile credits -->
 <div class="mobile-credits">
   <p><em>Soundtrack for My Funeral</em> is a community-collaborative project
   developed through workshops, open rehearsals, and public dialogue.</p>
@@ -631,18 +749,149 @@
   <p>The recordings gathered here will become material for
   an installation &amp; performance —</p>
   <br>
-  <p>May 16, 2026 &nbsp;·&nbsp; Capitol Modern</p>
+  <p>June 6, 2026 &nbsp;·&nbsp; Capitol Modern</p>
   <br>
   <p>a project by body portal theatre<br>
   presented by UHM outreach college and capitol modern<br>
   concept &amp; choreography sheenru yong<br><br>
   <a href="https://bodyportaltheatre.com" target="_blank" rel="noopener">bodyportaltheatre.com</a><br>
   state of hawaiʻi &nbsp;·&nbsp; art in public places<br>
-  <a href="https://www.capitolmodern.org/exhibits/trifecta" target="_blank" rel="noopener">trifecta &nbsp;·&nbsp; february 4 – july, 2026</a><br>
+  <a href="https://www.capitolmodern.org/exhibits/trifecta" target="_blank" rel="noopener">trifecta &nbsp;·&nbsp; february 4 – july 4, 2026</a><br>
   <a href="https://www.capitolmodern.org" target="_blank" rel="noopener">capitolmodern.org</a></p>
 </div>
 
 <script>
+  const RECEIVER_URL = 'https://script.google.com/macros/s/AKfycbwkeM2MytKbhp9P5xYqZ4nXO3csYgrze64GO-ww9aAP8y4u3UBlHrC4ORwCbQW2nE3C/exec';
+
+  let mediaRecorder = null;
+  let recordedBlob = null;
+  let timerInterval = null;
+  let timerSeconds = 0;
+  const MAX_SECONDS = 60;
+
+  function getSupportedMimeType() {
+    const types = ['audio/webm;codecs=opus','audio/webm','audio/mp4;codecs=mp4a.40.2','audio/mp4','audio/ogg;codecs=opus','audio/ogg'];
+    for (const t of types) { if (MediaRecorder.isTypeSupported(t)) return t; }
+    return '';
+  }
+
+  function blobToBase64(blob) {
+    return new Promise((resolve, reject) => {
+      const r = new FileReader();
+      r.onloadend = () => resolve(r.result.split(',')[1]);
+      r.onerror = reject;
+      r.readAsDataURL(blob);
+    });
+  }
+
+  async function toggleRecording() {
+    const ring = document.getElementById('ring-s');
+    const label = document.getElementById('rec-label');
+    const timer = document.getElementById('rec-timer');
+    const post = document.getElementById('post-record');
+    const audio = document.getElementById('rec-audio');
+
+    if (mediaRecorder && mediaRecorder.state === 'recording') {
+      mediaRecorder.stop();
+      ring.classList.remove('recording');
+      label.textContent = 'tap to record again';
+      timer.classList.remove('active');
+      clearInterval(timerInterval);
+      return;
+    }
+
+    try {
+      const stream = await navigator.mediaDevices.getUserMedia({ audio: true });
+      const mimeType = getSupportedMimeType();
+      mediaRecorder = mimeType ? new MediaRecorder(stream, { mimeType }) : new MediaRecorder(stream);
+      const chunks = [];
+
+      mediaRecorder.ondataavailable = e => chunks.push(e.data);
+      mediaRecorder.onstop = () => {
+        const blob = new Blob(chunks, { type: mediaRecorder.mimeType || 'audio/webm' });
+        recordedBlob = blob;
+        audio.src = URL.createObjectURL(blob);
+        const btn = document.getElementById('submit-btn');
+        if (btn) { btn.textContent = 'send'; btn.disabled = false; }
+        post.classList.add('visible');
+        stream.getTracks().forEach(t => t.stop());
+      };
+
+      mediaRecorder.start();
+      ring.classList.add('recording');
+      label.textContent = 'tap to stop';
+      post.classList.remove('visible');
+      document.getElementById('rec-status').textContent = '';
+      document.getElementById('rec-status').className = 'status-msg';
+      timerSeconds = 0;
+      timer.textContent = '0:00';
+      timer.classList.add('active');
+
+      timerInterval = setInterval(() => {
+        timerSeconds++;
+        const m = Math.floor(timerSeconds / 60);
+        const s = timerSeconds % 60;
+        timer.textContent = m + ':' + String(s).padStart(2, '0');
+        if (timerSeconds >= MAX_SECONDS) {
+          mediaRecorder.stop();
+          ring.classList.remove('recording');
+          label.textContent = 'tap to record again';
+          timer.classList.remove('active');
+          clearInterval(timerInterval);
+        }
+      }, 1000);
+
+    } catch(e) {
+      alert('Please allow microphone access to record.');
+    }
+  }
+
+  function discardRecording() {
+    document.getElementById('post-record').classList.remove('visible');
+    document.getElementById('rec-audio').src = '';
+    document.getElementById('rec-timer').textContent = '0:00';
+    document.getElementById('rec-timer').classList.remove('active');
+    document.getElementById('rec-status').textContent = '';
+    document.getElementById('rec-status').className = 'status-msg';
+    recordedBlob = null;
+  }
+
+  async function submitRecording() {
+    if (!recordedBlob) return;
+    const btn = document.getElementById('submit-btn');
+    const statusEl = document.getElementById('rec-status');
+    btn.textContent = 'sending…';
+    btn.disabled = true;
+
+    try {
+      const base64 = await blobToBase64(recordedBlob);
+      const timestamp = new Date().toISOString().replace(/[:.]/g, '-').slice(0, 19);
+      const payload = {
+        workLabel: 'SFMF_Sounds',
+        workId: 'SFMF_Sounds',
+        curator: 'contributor',
+        audioBase64: base64,
+        mimeType: recordedBlob.type || 'audio/webm',
+        timestamp: new Date().toISOString()
+      };
+      await fetch(RECEIVER_URL, {
+        method: 'POST',
+        mode: 'no-cors',
+        headers: { 'Content-Type': 'application/json' },
+        body: JSON.stringify(payload)
+      });
+      document.getElementById('post-record').classList.remove('visible');
+      statusEl.textContent = 'received. thank you.';
+      statusEl.className = 'status-msg visible';
+    } catch(e) {
+      btn.textContent = 'send';
+      btn.disabled = false;
+      statusEl.textContent = 'something went wrong — try again';
+      statusEl.className = 'status-msg visible error';
+    }
+  }
+
+  // Accordion
   const toggle = document.getElementById('curatorToggle');
   const body   = document.getElementById('curatorBody');
   if (toggle && body) {
